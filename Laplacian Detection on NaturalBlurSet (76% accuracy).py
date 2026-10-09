@@ -7,7 +7,7 @@
 #import 
 import pandas as pd
 import os
-from scipy.misc import *
+import matplotlib.pyplot as plt
 from matplotlib.pyplot import imread
 # im = imread(image.png)
 import cv2
@@ -21,7 +21,7 @@ from sklearn.metrics import accuracy_score , recall_score, confusion_matrix
 # In[33]:
 
 
-dataset=pd.read_excel("./../../CERTH_ImageBlurDataset/CERTH_ImageBlurDataset/EvaluationSet/NaturalBlurSet.xlsx")
+dataset=pd.read_excel("./CERTH_ImageBlurDataset/EvaluationSet/NaturalBlurSet.xlsx")
 
 
 # In[35]:
@@ -78,13 +78,12 @@ def blur_notblur(imagePath):  # our classification method
 # In[22]:
 
 
-from scipy.misc import imresize
 
 temp_pred=[]
 temp_orig=[]
 for index, row in dataset.iterrows():
     img_name=row["Image Name"]+'.jpg'  ## get the images names from dataset
-    img_path=os.path.join('./../../CERTH_ImageBlurDataset/CERTH_ImageBlurDataset/EvaluationSet/NaturalBlurSet',img_name)
+    img_path=os.path.join('./CERTH_ImageBlurDataset/EvaluationSet/NaturalBlurSet',img_name)
     temp_pred.append(blur_notblur(img_path))  # predicted result
     temp_orig.append(row["Blur Label"])  ## original result
 
@@ -98,7 +97,7 @@ y_true=np.stack(temp_orig)
 
 
 from sklearn.metrics import accuracy_score
-accuracy_score(y_true,y_pred)
+print("accuracy:", accuracy_score(y_true,y_pred))
 
 
 # In[28]:

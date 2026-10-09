@@ -16,3 +16,11 @@ __pycache__/
 *.csv
 
 instructions.txt
+## dataset
+
+CERTH_ImageBlurDataset/
+
+## trained models
+
+models/
+.venv/

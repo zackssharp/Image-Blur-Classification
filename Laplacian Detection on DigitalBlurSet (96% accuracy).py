@@ -7,7 +7,6 @@
 #import 
 import pandas as pd
 import os
-from scipy.misc import *
 from matplotlib.pyplot import imread
 # im = imread(image.png)
 import cv2
@@ -21,7 +20,7 @@ from sklearn.metrics import accuracy_score , recall_score, confusion_matrix
 # In[22]:
 
 
-dataset=pd.read_excel("./../../CERTH_ImageBlurDataset/CERTH_ImageBlurDataset/EvaluationSet/DigitalBlurSet.xlsx") ## read xls
+dataset=pd.read_excel("./CERTH_ImageBlurDataset/EvaluationSet/DigitalBlurSet.xlsx") ## read xls
 
 
 # In[30]:
@@ -78,16 +77,15 @@ def blur_notblur(imagePath):  # our classification method
 # In[44]:
 
 
-from scipy.misc import imresize
 
 temp_pred=[]
 temp_orig=[]
 for index, row in dataset.iterrows():
     img_name=row["MyDigital Blur"] ## get the images names from dataset
-    img_path=os.path.join('./../../CERTH_ImageBlurDataset/CERTH_ImageBlurDataset/EvaluationSet/DigitalBlurSet',img_name)
+    img_path=os.path.join('./CERTH_ImageBlurDataset/EvaluationSet/DigitalBlurSet',img_name)
 #     print(img_path[:-1])
     temp_pred.append(blur_notblur(img_path[:-1]))  # predicted result 
-    temp_orig.append(row[1])  ## original result
+    temp_orig.append(row.iloc[1])  ## original result
 
 import numpy as np
 
@@ -99,13 +97,13 @@ y_true=np.stack(temp_orig)
 
 
 
-accuracy_score(y_true,y_pred)
+print("accuracy:", accuracy_score(y_true,y_pred))
 
 
 # In[46]:
 
 
-confusion_matrix(y_true,y_pred)
+print(confusion_matrix(y_true,y_pred))
 
 
 # In[47]:
